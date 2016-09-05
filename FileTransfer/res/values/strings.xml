@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">速传</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="titleName">速传</string>
+    <string name="record">收发记录</string>
+    <string name="title1">文件</string>
+    <string name="title2">图片</string>
+    <string name="title3">音乐</string>
+    <string name="title4">视频</string>
+    <string name="title5">应用</string>
+    <string name="fa">发文件</string>
+    <string name="shou">收文件</string>
+</resources>
