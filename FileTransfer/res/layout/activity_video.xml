@@ -8,8 +8,11 @@
 
     <ListView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/listVideo">
+        android:layout_height="fill_parent"
+        android:id="@+id/listVideo"
+        android:divider="#CDCDCD"
+        android:dividerHeight="1dp"
+        android:headerDividersEnabled="true">
         
     </ListView>
     

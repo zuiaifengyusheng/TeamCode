@@ -6,11 +6,13 @@
     android:background="#ffffff"
     android:id="@+id/musicbar" >
 
-
     <ListView
+        android:id="@+id/listMusic"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/listMusic">
+        android:layout_height="fill_parent"
+        android:divider="#CDCDCD"
+        android:dividerHeight="1dp"
+        android:headerDividersEnabled="true" >
         
     </ListView>
     

@@ -1,28 +1,28 @@
 package com.example.adapter;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
-
+import com.bumptech.glide.Glide;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.provider.MediaStore.Video;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.VideoView;
+import android.widget.Toast;
+
 
 public class VideoAdapter extends SimpleAdapter {
 
-	private int[] appTo;
-	private String[] appFrom;
-	private ViewBinder appViewBinder;
-	private List<?extends Map<String,?>> appData;
-	private int appResource;
-	private LayoutInflater appInflater;
+	private int[] videoTo;
+	private String[] videoFrom;
+	private ViewBinder videoViewBinder;
+	private List<?extends Map<String,?>> videoData;
+	private int videoResource;
+	private LayoutInflater videoInflater;
+	private Context context;
 	
 	//¹¹ÔìÆ÷
 	public VideoAdapter(Context context, List<? extends Map<String, ?>> data,
@@ -30,16 +30,17 @@ public class VideoAdapter extends SimpleAdapter {
 		super(context, data, resource, from, to);
 		// TODO Auto-generated constructor stub
 
-		appData=data;
-		appResource=resource;
-		appFrom=from;
-		appTo=to;
-		appInflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		this.context=context;
+		videoData=data;
+		videoResource=resource;
+		videoFrom=from;
+		videoTo=to;
+		videoInflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		
 	}
 	public View getView(int position,View convertView,ViewGroup parent)
 	{
-		return createViewFromResource(position, convertView, parent, appResource); 
+		return createViewFromResource(position, convertView, parent, videoResource); 
 	}
 
 	private View createViewFromResource(int position,View convertView,ViewGroup parent,int resource)
@@ -47,8 +48,8 @@ public class VideoAdapter extends SimpleAdapter {
 		View v;
 		 if(convertView == null)
 		 {              
-			 v = appInflater.inflate(resource, parent,false);             
-			 final int[] to = appTo;              
+			 v = videoInflater.inflate(resource, parent,false);             
+			 final int[] to = videoTo;              
 			 final int count = to.length;               
 			 final View[] holder = new View[count];                            
 			 for(int i = 0; i < count; i++)
@@ -68,17 +69,17 @@ public class VideoAdapter extends SimpleAdapter {
 	private void bindView(int position, View v) 
 	{
 		// TODO Auto-generated method stub
-		final Map dataSet=appData.get(position);
+		final Map dataSet=videoData.get(position);
 		
 		if(dataSet==null)
 		{
 			return;
 		}
 		
-		final ViewBinder binder=appViewBinder;
+		final ViewBinder binder=videoViewBinder;
 		final View[] holder=(View[])v.getTag();
-		final String[] from=appFrom;
-		final int[] to=appTo;
+		final String[] from=videoFrom;
+		final int[] to=videoTo;
 		final int count=to.length;
 		for(int i=0;i<count;i++)
 		{
@@ -87,7 +88,7 @@ public class VideoAdapter extends SimpleAdapter {
 			{
 				final Object data=dataSet.get(from[i]);
 				String text=data==null?"":data.toString();
-				
+				Toast.makeText(context, data+"", Toast.LENGTH_SHORT).show();
 				if(text==null)
 				{
 					text="";
@@ -105,7 +106,7 @@ public class VideoAdapter extends SimpleAdapter {
 					}
 					else if(view instanceof ImageView)
 					{
-						setViewImage((ImageView)view, (Bitmap)data);
+						Glide.with(context).load(new File(text)).into((ImageView)view);
 					}
 					else
 					{
@@ -114,9 +115,5 @@ public class VideoAdapter extends SimpleAdapter {
 				}
 			}
 		}		
-	}
-	public void setViewImage(ImageView v,Bitmap value)
-	{
-		v.setImageBitmap(value);
 	}
 }

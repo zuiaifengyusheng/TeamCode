@@ -1,14 +1,11 @@
 package com.example.shuxing;
 
-import android.graphics.Bitmap;
-
 public class VideoInfor {
 
 	public String name;//视频名称
 	public String path;//视频存储路径
-	public String size;//视频大小
+	public long size;//视频大小
 	public String data;//拍照日期
-	public Bitmap media;//视频图片
 	public String mtime;//视频时长
 	
 	public VideoInfor()
@@ -16,23 +13,21 @@ public class VideoInfor {
 		super();
 	}
 
-	public VideoInfor(String name,String path,Bitmap media,
-			String data,String size)
+	public VideoInfor(String name,String path,
+			String data,long size)
 	{
 		super();
 		this.name=name;
 		this.path=path;
-		this.media=media;
 		this.data=data;
 		this.size=size;
 	}
-	public VideoInfor(String name,String path,Bitmap media,
-			String data,String size,String mtime)
+	public VideoInfor(String name,String path,
+			String data,long size,String mtime)
 	{
 		super();
 		this.name=name;
 		this.path=path;
-		this.media=media;
 		this.data=data;
 		this.size=size;
 		this.mtime=mtime;
@@ -54,11 +49,11 @@ public class VideoInfor {
 		this.path = path;
 	}
 
-	public String getSize() {
+	public long getSize() {
 		return size;
 	}
 
-	public void setSize(String size) {
+	public void setSize(long size) {
 		this.size = size;
 	}
 
@@ -68,14 +63,6 @@ public class VideoInfor {
 
 	public void setData(String data) {
 		this.data = data;
-	}
-
-	public Bitmap getMedia() {
-		return media;
-	}
-
-	public void setMedia(Bitmap media) {
-		this.media = media;
 	}
 
 	public String getMtime() {

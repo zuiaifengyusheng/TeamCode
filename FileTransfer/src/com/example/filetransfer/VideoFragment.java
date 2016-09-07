@@ -5,10 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.example.Service.PictureInforService;
 import com.example.Service.VideoInforService;
-import com.example.adapter.PictureAdapter;
-import com.example.shuxing.PictureInfor;
+import com.example.adapter.VideoAdapter;
 import com.example.shuxing.VideoInfor;
 
 import android.os.Bundle;
@@ -24,7 +22,7 @@ public class VideoFragment extends Fragment {
  
 	public ListView mListView;
 	static List<Map<String,Object>> listVideo;
-	static PictureAdapter mlistItemAdapter;
+	static VideoAdapter mlistItemAdapter;
 	private VideoInforService videoInforService;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
@@ -40,11 +38,10 @@ public class VideoFragment extends Fragment {
 	    listVideo=getVideoList();
 			
 		/*构造SimpleAdapter适配器，将它和ListView自定义的布局文件、List数据源关联*/
-		/*mlistItemAdapter=new PictureAdapter(getActivity(), listVideo, R.layout.activity_onevideo, new String[]{"picture","date","size"}, new int[]{R.id.video,R.id.textDate,R.id.textSize});
+		mlistItemAdapter=new VideoAdapter(getActivity(), listVideo, R.layout.activity_onevideo, new String[]{"path","vtime","size","name"}, new int[]{R.id.video,R.id.videoTime,R.id.videoSize,R.id.videoName});
 		mlistItemAdapter.notifyDataSetChanged();
-		mListView.getDivider().setAlpha(0); 
 		mListView.setAdapter(mlistItemAdapter);
-*/	    if(listVideo.size()!=0)
+	    if(listVideo.size()!=0)
 	    {
 	    	Toast.makeText(getActivity(), "mmm", Toast.LENGTH_SHORT).show();
 	    }
@@ -61,22 +58,18 @@ public class VideoFragment extends Fragment {
 		listvideo=videoInforService.getVideoInfor();
 		
 		int size=listvideo.size();
-		 if(size==0)
-		 {
-		    	Toast.makeText(getActivity(), "nnnnn", Toast.LENGTH_SHORT).show();
-		 }
-		 else{
-				Toast.makeText(getActivity(), "非空2", Toast.LENGTH_SHORT).show();
-			}
+		if(size==0)
+		{
+			return null;
+		}
 		for(int i=0;i<size;i++)
 		{
 			VideoInfor videoInfor=listvideo.get(i);
 		    Map<String,Object> map=new HashMap<String,Object>();
-			map.put("picture", videoInfor.getMedia());
 			map.put("name", videoInfor.getName());
 			map.put("path", videoInfor.getPath());
 			map.put("date", videoInfor.getData());
-			Toast.makeText(getActivity(),videoInfor.getMedia()+"", Toast.LENGTH_SHORT).show();
+			map.put("vtime", videoInfor.getMtime());
 		    map.put("size", videoInfor.getSize()+" M");
 		    videoList.add(map);
 			

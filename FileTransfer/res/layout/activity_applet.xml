@@ -7,12 +7,24 @@
 
 
 
-    <ListView
+    <!-- <ListView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/listApplet">
+        android:id="@+id/listApplet"
+        android:divider="#FFF"
+        android:footerDividersEnabled="true"
+        android:dividerHeight="1px">
         
+    </ListView> -->
+
+    <ListView
+        android:id="@+id/listApplet"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:divider="#CDCDCD"
+        android:dividerHeight="1dp"
+        android:headerDividersEnabled="true" >
+
     </ListView>
-    
 
 </LinearLayout>

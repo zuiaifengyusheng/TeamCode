@@ -17,6 +17,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 
 import android.provider.MediaStore;
+import android.widget.Toast;
 
 public class PictureInforService {
 
@@ -73,13 +74,8 @@ public class PictureInforService {
 	                BigDecimal setScale = bd.setScale(3, BigDecimal.ROUND_DOWN);
 	    return setScale;
 	}
-	private Bitmap getImage(String imagePath) {
-        Bitmap bitmap = null;
-        
-        bitmap = BitmapFactory.decodeFile(imagePath);
-        
-        return bitmap;
-    }
+
+	//异步获取图片信息
 	public class MyPicture extends AsyncTask<String, Integer, ArrayList<String>> {
 
         @Override
@@ -94,18 +90,7 @@ public class PictureInforService {
 				String path=cursor.getString(0);
 				lpath.add(path);
 			}
-			/*
-			 Uri mImageUri1 = MediaStore.Images.Thumbnails.INTERNAL_CONTENT_URI;
-	            ContentResolver mContentResolver1 =context.getContentResolver();
-				Cursor cursor1=mContentResolver1.query(mImageUri1,proj, null, null, null);
-			Cursor cursor1=context.getContentResolver().query(uri1, proj1, null, null, null);
-			while(cursor1.moveToNext())
-			{
-				String path=cursor1.getString(0);
-				lpath.add(new File(path).getAbsolutePath());
-			}*/
 			cursor.close();
-			/*cursor1.close();*/
 			return lpath;
         }
         @Override

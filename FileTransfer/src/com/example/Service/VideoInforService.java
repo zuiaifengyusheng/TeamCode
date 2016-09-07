@@ -1,6 +1,5 @@
 package com.example.Service;
 
-import java.io.File;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,23 +8,18 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.media.ExifInterface;
+import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
-import android.provider.MediaStore.Images.Thumbnails;
-import android.provider.MediaStore.Video;
 import android.widget.Toast;
 
-import com.example.Service.PictureInforService.MyPicture;
 import com.example.shuxing.VideoInfor;
-import com.example.shuxing.VideoPath;
 
 public class VideoInforService {
 
 	private Context context;
 	private List<VideoInfor> list=new ArrayList<VideoInfor>();
-	private ArrayList<VideoPath> listpath;
 	public VideoInforService(Context context)
 	{
 		this.context=context;
@@ -34,53 +28,7 @@ public class VideoInforService {
 	public List<VideoInfor> getVideoInfor()
 	{
 		MyVideo mv=new MyVideo();
-		listpath=mv.doInBackground();
-		
-		if(listpath.size()==0)
-		{
-			Toast.makeText(context, "xcvcvcxvbcvbc", Toast.LENGTH_SHORT).show();
-			return null;			
-		}
-		else{
-			Toast.makeText(context, "非空1", Toast.LENGTH_SHORT).show();
-		}
-
-		for(int i=0;i<listpath.size();i++)
-		{
-			File file=new File(listpath.get(i).getPath());
-			VideoInfor video=new VideoInfor();
-			//视频名称
-			video.setName(file.getName());
-			//视频路径
-			video.setPath(file.getAbsolutePath());
-			
-			//视频大小
-	        int value=Integer.valueOf((int)file.length());
-	        BigDecimal pSize=parseApkSize(value);
-	        String size=pSize.toString();
-	        video.setSize(size);
-			
-	        //视频时长
-	        String mtime;
-			
-			//视频缩略图
-			Bitmap bitmap=MediaStore.Video.Thumbnails.getThumbnail(context.getContentResolver(), listpath.get(i).getID(), Video.Thumbnails.MICRO_KIND, null);
-			Toast.makeText(context, listpath.get(i).getID()+"", Toast.LENGTH_SHORT).show();
-			video.setMedia(bitmap);
-			
-			//视频日期日期
-			String date=null;
-		    try{
-			     ExifInterface exif = new ExifInterface(file.getPath());
-			     date=exif.getAttribute(ExifInterface.TAG_DATETIME);
-			}
-			catch(Exception ee){
-			}
-		    video.setData(date);
-			
-			list.add(video);
-			
-		}
+		list=mv.doInBackground();
 		return list;
 	}
 	private BigDecimal parseApkSize(int size) {
@@ -89,25 +37,104 @@ public class VideoInforService {
 	    return setScale;
 	}
 
-	public class MyVideo extends AsyncTask<String, Integer, ArrayList<VideoPath>> {
+	public Bitmap getVideoThumbnail(String filePath) {  
+        Bitmap bitmap = null;  
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();  
+        try {  
+            retriever.setDataSource(filePath);  
+            bitmap = retriever.getFrameAtTime();  
+        }   
+        catch(IllegalArgumentException e) {  
+            e.printStackTrace();  
+        }   
+        catch (RuntimeException e) {  
+            e.printStackTrace();  
+        }   
+        finally {  
+            try {  
+                retriever.release();  
+            }   
+            catch (RuntimeException e) {  
+                e.printStackTrace();  
+            }  
+        }  
+        return bitmap;  
+    }
+	public String VideoTime(long ltime)
+	{
+		long ms=ltime%1000;
+		long s=ltime/1000;
+		long m=s/60;
+		s=s%60;
+		long h=m/60;
+		m=m%60;
+		String str="";
+		if(h<=0)
+		{
+			str=str+"00:";
+		}
+		else if(h<10)
+		{
+			str=str+"0"+h+":";
+		}
+		else
+		{
+			str=str+h+":";
+		}
+
+		if(m<=0)
+		{
+			str=str+"00:";
+		}
+		else if(m<10)
+		{
+			str=str+"0"+m+":";
+		}
+		else
+		{
+			str=str+m+":";
+		}
+		if(s<=0)
+		{
+			str=str+"00";
+		}
+		else if(s<10)
+		{
+			str=str+"0"+s;
+		}
+		else
+		{
+			str=str+s;
+		}
+
+		return str;
+	}
+	public class MyVideo extends AsyncTask<String, Integer, ArrayList<VideoInfor>> {
 
         @Override
-        protected ArrayList<VideoPath> doInBackground(String... params) {
-        	ArrayList<VideoPath> lpath=new ArrayList<VideoPath>();
-			String[] proj={MediaStore.Video.Thumbnails._ID,MediaStore.Video.Thumbnails.DATA};
-            Uri mVideoUri = MediaStore.Video.Thumbnails.EXTERNAL_CONTENT_URI;
+        protected ArrayList<VideoInfor> doInBackground(String... params) {
+        	ArrayList<VideoInfor> lpath=new ArrayList<VideoInfor>();
+
+            Uri mVideoUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+            Toast.makeText(context, mVideoUri.toString(), Toast.LENGTH_SHORT).show();
             ContentResolver mContentResolver =context.getContentResolver();
-			Cursor cursor=mContentResolver.query(mVideoUri, proj, null, null,null);
+			Cursor cursor=mContentResolver.query(mVideoUri, null, null, null,null);
 			while(cursor.moveToNext())
 			{
-				VideoPath pp=new VideoPath();
-				String path=cursor.getString(1);
-				long id=Long.parseLong(cursor.getString(0));
-				Toast.makeText(context, id+"", Toast.LENGTH_SHORT).show();
+				VideoInfor video=new VideoInfor();
 				
-				pp.setID(id);
-				pp.setPath(path);
-				lpath.add(pp);
+				int id=cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Video.Media._ID));
+				String name=cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DISPLAY_NAME));
+				String path=cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA));
+				String data=cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATE_MODIFIED));
+				long ltime=cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DURATION));
+				int lsize=cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.SIZE));
+				String vtime=VideoTime(ltime);
+				BigDecimal pSize=parseApkSize(lsize);
+		        long size=pSize.longValue();
+				video=new VideoInfor(name,path,data,size,vtime);
+				lpath.add(video);
+				
 			}
 			cursor.close();
 			return lpath;
@@ -118,7 +145,7 @@ public class VideoInforService {
         }
 
         @Override
-        protected void onPostExecute(ArrayList<VideoPath> bytes) {
+        protected void onPostExecute(ArrayList<VideoInfor> bytes) {
             super.onPostExecute(bytes);
         }
 

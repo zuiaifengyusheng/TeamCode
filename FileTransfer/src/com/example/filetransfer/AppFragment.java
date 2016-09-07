@@ -38,7 +38,6 @@ public class AppFragment extends Fragment {
 		/*构造SimpleAdapter适配器，将它和ListView自定义的布局文件、List数据源关联*/
 		mlistItemAdapter=new AppAdapter(getActivity(), listapplet, R.layout.activity_onelist, new String[]{"picture","name","appSize"}, new int[]{R.id.picture,R.id.name,R.id.time});
 		mlistItemAdapter.notifyDataSetChanged();
-		mListView.getDivider().setAlpha(0); 
 		mListView.setAdapter(mlistItemAdapter);
 	}
 

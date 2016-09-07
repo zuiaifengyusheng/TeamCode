@@ -1,5 +1,6 @@
 package com.example.shuxing;
 
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 
 public class FileInfor {
@@ -8,22 +9,22 @@ public class FileInfor {
 	public String path;//文件存储路径
 	public String size;//文件大小
 	public String data;//修改日期
-	public Drawable icon;//文件图片
+	public Bitmap icon;//文件图片
 	
 	public FileInfor()
 	{
 		super();
 	}
-	public FileInfor(String name,String path,Drawable icon,
-			String data)
+	public FileInfor(String name,String path,
+			String data,String size)
 	{
 		super();
 		this.name=name;
 		this.path=path;
-		this.icon=icon;
 		this.data=data;
+		this.size=size;
 	}
-	public FileInfor(String name,String path,Drawable icon,
+	public FileInfor(String name,String path,Bitmap icon,
 			String data,String size)
 	{
 		super();
@@ -67,11 +68,11 @@ public class FileInfor {
 		this.data = data;
 	}
 
-	public Drawable getIcon() {
+	public Bitmap getIcon() {
 		return icon;
 	}
 
-	public void setIcon(Drawable icon) {
+	public void setIcon(Bitmap icon) {
 		this.icon = icon;
 	}
 	

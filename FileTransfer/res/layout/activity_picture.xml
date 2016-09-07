@@ -5,12 +5,13 @@
     android:background="#ffffff"
     android:orientation="vertical"  >
 
-
-
     <ListView
+        android:id="@+id/listPicture"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/listPicture">
+        android:layout_height="fill_parent"
+        android:divider="#CDCDCD"
+        android:dividerHeight="3dp"
+        android:headerDividersEnabled="true" >
         
     </ListView>
     

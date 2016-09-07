@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import android.content.Context;
@@ -110,7 +111,7 @@ public class PictureAdapter extends SimpleAdapter {
 					else if(view instanceof ImageView)
 					{
 						
-						Picasso.with(context).load(new File(data.toString())).fit().into((ImageView)view);
+						Glide.with(context).load(new File(data.toString())).into((ImageView)view);
 					}
 					else
 					{
