@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+
     android:id="@+id/oneListView">
 
     <LinearLayout
@@ -28,8 +29,16 @@
                 android:id="@+id/name"
                 android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"                
-                android:textSize="20sp" />
+                android:layout_height="30dp"
+                android:textColor="#000000"                
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/path"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/time"
@@ -49,7 +58,6 @@
                 android:src="@drawable/weixuan" />
     </LinearLayout>
 
-"
     
 
 </LinearLayout>
