@@ -16,9 +16,13 @@ import com.example.adapter.FileAdapter;
 import com.example.listener.OneListItemExpandListener;
 import com.example.shuxing.FileInfor;
 
+import android.content.ContentResolver;
 import android.content.Context;
+import android.database.Cursor;
 import android.media.ExifInterface;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -48,12 +52,12 @@ public class FileFragment extends Fragment {
 		groupList[4]="压缩文件";
 		
 		
-		//找到这个控件  
+		/*//找到这个控件  
         list_file= (ExpandableListView)view.findViewById(R.id.listFile);  
-          
+         
         list_file.setAdapter(new FileAdapter(getActivity(), list_file, groupList));
         list_file.expandGroup(0);
-        list_file.setOnGroupExpandListener(new OneListItemExpandListener(list_file)); 		
+        list_file.setOnGroupExpandListener(new OneListItemExpandListener(list_file)); */	
 		
 	}
 

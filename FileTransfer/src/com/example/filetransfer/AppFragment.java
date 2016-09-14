@@ -17,6 +17,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -27,6 +28,7 @@ public class AppFragment extends Fragment {
 	static List<Map<String,Object>> listapplet;
 	static AppAdapter mlistItemAdapter;
 	private AppInforService appInforService;
+	
 
 	@Override
 	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -35,12 +37,21 @@ public class AppFragment extends Fragment {
 	    mListView=(ListView) view.findViewById(R.id.listApplet);
 		listapplet=getAppList();
 		
-		/*构造SimpleAdapter适配器，将它和ListView自定义的布局文件、List数据源关联*/
-		mlistItemAdapter=new AppAdapter(getActivity(), listapplet, R.layout.activity_onelist, new String[]{"picture","name","appSize"}, new int[]{R.id.picture,R.id.name,R.id.time});
-		mlistItemAdapter.notifyDataSetChanged();
-		mListView.setAdapter(mlistItemAdapter);
+		if(listapplet.size()!=0)
+		{
+			/*构造SimpleAdapter适配器，将它和ListView自定义的布局文件、List数据源关联*/
+			mlistItemAdapter=new AppAdapter(getActivity(), listapplet, R.layout.activity_onelist, new String[]{"picture","name","appSize"}, new int[]{R.id.picture,R.id.name,R.id.time});
+			mlistItemAdapter.notifyDataSetChanged();
+			mListView.setAdapter(mlistItemAdapter);
+		}
+		
+		
+		
+		
+		
 	}
 
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

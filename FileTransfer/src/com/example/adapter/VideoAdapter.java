@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 public class VideoAdapter extends SimpleAdapter {
@@ -88,7 +87,6 @@ public class VideoAdapter extends SimpleAdapter {
 			{
 				final Object data=dataSet.get(from[i]);
 				String text=data==null?"":data.toString();
-				Toast.makeText(context, data+"", Toast.LENGTH_SHORT).show();
 				if(text==null)
 				{
 					text="";

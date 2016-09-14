@@ -5,28 +5,28 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.common.Common;
 import com.example.shuxing.PictureInfor;
 
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
 
 import android.provider.MediaStore;
-import android.widget.Toast;
 
 public class PictureInforService {
 
 	private Context context;
 	private List<PictureInfor> list=new ArrayList<PictureInfor>();
 	private ArrayList<String> listpath;
+	private Common common;
 	public PictureInforService(Context context)
 	{
 		this.context=context;
+		common=new Common();
 	}
 
 	public List<PictureInfor> getPictureInfor()
@@ -50,7 +50,7 @@ public class PictureInforService {
 			
 			//图片大小
 	        int value=Integer.valueOf((int)file.length());
-	        BigDecimal pSize=parseApkSize(value);
+	        BigDecimal pSize=common.parseApkSize(value);
 	        String size=pSize.toString();
 			picture.setSize(size);
 		
@@ -69,12 +69,6 @@ public class PictureInforService {
 		}
 		return list;
 	}
-	private BigDecimal parseApkSize(int size) {
-	    BigDecimal bd = new BigDecimal((double)size/(1024*1024));
-	                BigDecimal setScale = bd.setScale(3, BigDecimal.ROUND_DOWN);
-	    return setScale;
-	}
-
 	//异步获取图片信息
 	public class MyPicture extends AsyncTask<String, Integer, ArrayList<String>> {
 

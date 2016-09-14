@@ -24,6 +24,12 @@
             android:gravity="bottom" >
 
             <TextView
+                android:id="@+id/videoPath"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <TextView
                 android:id="@+id/videoName"
                 android:layout_width="wrap_content"
                 android:layout_height="23dp"
@@ -59,13 +65,13 @@
 
         </LinearLayout>
 
-        <ImageView
+        <CheckBox
             android:id="@+id/choose"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_marginTop="20dp"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/weixuan" />
+            android:layout_marginRight="20dp" 
+            android:focusable="false"/>
 
     </LinearLayout>
     

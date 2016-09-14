@@ -49,13 +49,13 @@
                 android:textColor="#2F4F4F" />
 
         </LinearLayout>
-        <ImageView
+        <CheckBox
                 android:id="@+id/choose"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="20dp"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/weixuan" />
+                android:layout_width="35dp"
+                android:layout_height="35dp" 
+                android:focusable="false"/>
     </LinearLayout>
 
     

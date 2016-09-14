@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class PictureAdapter extends SimpleAdapter {
 
@@ -40,6 +38,7 @@ public class PictureAdapter extends SimpleAdapter {
 		imageInflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		
 	}
+
 	public View getView(int position,View convertView,ViewGroup parent)
 	{
 		return createViewFromResource(position, convertView, parent, imageResource); 

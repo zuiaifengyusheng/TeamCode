@@ -11,7 +11,8 @@
         android:layout_height="fill_parent"
         android:divider="#CDCDCD"
         android:dividerHeight="3dp"
-        android:headerDividersEnabled="true" >
+        android:headerDividersEnabled="true"
+        android:listSelector="#00000000" >
         
     </ListView>
     

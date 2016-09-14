@@ -1,5 +1,6 @@
 package com.example.filetransfer;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,9 +9,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 
@@ -33,15 +34,72 @@ public class MainActivity extends FragmentActivity implements OnClickListener{
 	private Fragment mFrag03;
 	private Fragment mFrag04;
 	private Fragment mFrag05;
+	
+	private Button btn_send;
+	private Button btn_receiver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        btn_send = (Button)findViewById(R.id.fa);
+    	btn_receiver = (Button)findViewById(R.id.shou);
         initView();
         initEvents();
         setSelect(0);
+        
+        btn_send.setOnClickListener(new View.OnClickListener() {
+    		@Override
+    		public void onClick(View v0) {
+    			// TODO Auto-generated method stub
+    			Intent intent = new Intent();
+    			intent.setClass(MainActivity.this, ChooseActivity.class);
+    			startActivity(intent);
+    			
+    			/*connManager = (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
+    			NetworkInfo activeNetworkInfo = connManager.getActiveNetworkInfo();
+    			boolean connect = activeNetworkInfo.isConnected();
+    			if(connect){
+    				Toast.makeText(getApplicationContext(), "当前的网络连接可用", Toast.LENGTH_SHORT).show();
+    			}
+    			else{
+    				Toast.makeText(getApplicationContext(), "当前的网络连接不可用", Toast.LENGTH_SHORT).show();
+    				//如果是打开状态就关闭，如果是关闭就打开
+    				flag =!flag;
+    				setWifiApEnabled(flag);
+    			}
+    			State state = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState();
+    			if(State.CONNECTED == state){
+    				Toast.makeText(getApplicationContext(), "GPRS网络已连接", Toast.LENGTH_SHORT).show();
+    			}
+    			state = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState();
+    			if(State.CONNECTED == state){
+    				Toast.makeText(getApplicationContext(), "WIFI网络已连接", Toast.LENGTH_SHORT).show();
+    				
+    			}*/
+    			/*wifiManager = (WifiManager)MainActivity.this.getSystemService(Context.WIFI_SERVICE);
+    			wifiManager.setWifiEnabled(true);//开启WiFi		
+    */			}
+    	});
+    	btn_receiver.setOnClickListener(new View.OnClickListener() {
+    		
+    		@Override
+    		public void onClick(View v1) {
+    			// TODO Auto-generated method stub
+    			/*connManager = (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
+    			NetworkInfo activeNetworkInfo = connManager.getActiveNetworkInfo();
+    			boolean connect = activeNetworkInfo.isConnected();
+    			if(connect){
+    				Toast.makeText(getApplicationContext(), "当前网络连接可用", Toast.LENGTH_SHORT).show();
+    			}
+    			else{
+    				Toast.makeText(getApplicationContext(), "当前网络连接不可用", Toast.LENGTH_SHORT).show();
+    				wifiManager.startScan();通过按钮事件搜索热点
+    			}*/
+    		}
+    	});
     }
+    
+   
     
     //事件
 	private void initEvents() {
